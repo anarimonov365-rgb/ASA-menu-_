@@ -35,6 +35,7 @@
     .footer-brand img {
       width: 64px;
       height: 64px;
+      border-radius: 50%;
       object-fit: contain;
     }
 
@@ -1001,10 +1002,11 @@
       display: block !important;
       width: 100%;
       height: 100%;
+      border-radius: 50%;
       object-fit: contain;
       padding: 6px;
       background: radial-gradient(circle at center, rgba(32, 167, 138, 0.22), rgba(7, 29, 32, 0.95));
-      cursor: default;
+      cursor: zoom-in;
     }
 
     .mi-thumb.mi-thumb-placeholder {
@@ -1552,6 +1554,7 @@
     }
 
     .admin-item-thumb img.placeholder-logo {
+      border-radius: 50%;
       object-fit: contain;
       padding: 5px;
       background: radial-gradient(circle at center, rgba(32, 167, 138, 0.22), rgba(7, 29, 32, 0.95));
@@ -3474,9 +3477,6 @@
         if (!(e.target instanceof Element)) return;
         const img = e.target.closest('.mi-thumb img');
         if (!img) return;
-        if (img.classList.contains('is-placeholder-logo') || (img.getAttribute('src') || '').includes('rasm/asa-menu.svg')) {
-          return;
-        }
         e.stopPropagation();
         openLightbox(img.src, img.alt);
       });
