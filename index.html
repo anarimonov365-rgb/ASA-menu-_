@@ -3243,6 +3243,27 @@
   <script src="menu-sync.js"></script>
   <script src="admin.js"></script>
   <script>
+    document.querySelectorAll('.menu-group:not([data-cat="ichimlik"]) .menu-item').forEach(item => {
+      let thumb = item.querySelector('.mi-thumb');
+      if (!thumb) {
+        thumb = document.createElement('div');
+        thumb.className = 'mi-thumb';
+        item.prepend(thumb);
+      }
+
+      let image = thumb.querySelector('img');
+      if (!image) {
+        image = document.createElement('img');
+        image.loading = 'lazy';
+        thumb.append(image);
+      }
+
+      const itemName = item.querySelector('.mi-name')?.textContent.trim() || 'Taom';
+      image.src = 'rasm/asa-menu.svg';
+      image.alt = `${itemName} taomi rasmi`;
+      image.classList.add('is-placeholder-logo');
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
       const isAdminInteraction = (event) =>
         event.target instanceof Element && event.target.closest('.admin-shell, .admin-login');
@@ -3277,6 +3298,7 @@
           item.prepend(thumb);
         }
         item.classList.add('has-thumb');
+        const itemName = item.querySelector('.mi-name')?.textContent.trim() || 'Taom';
         let image = thumb.querySelector('img');
         const showPlaceholder = () => {
           if (!image) {
@@ -3286,7 +3308,7 @@
           }
           image.onerror = null;
           image.src = 'rasm/asa-menu.svg';
-          image.alt = 'ASA MENU';
+          image.alt = `${itemName} taomi rasmi`;
           image.classList.add('is-placeholder-logo');
           thumb.classList.remove('mi-thumb-placeholder');
         };
@@ -3294,6 +3316,7 @@
         if (!image || !image.getAttribute('src')?.trim()) {
           showPlaceholder();
         } else {
+          image.alt = `${itemName} taomi rasmi`;
           thumb.classList.remove('mi-thumb-placeholder');
           image.addEventListener('error', showPlaceholder, { once: true });
           if (image.complete && image.naturalWidth === 0) showPlaceholder();
